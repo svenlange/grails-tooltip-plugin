@@ -1,0 +1,12 @@
+<plugin name='tooltip' version='0.1-alpha' grailsVersion='1.1-RC2 &gt; *'>
+  <author>Sven Lange</author>
+  <authorEmail>sv3n.lange@gmail.com</authorEmail>
+  <title>Tooltip Plugin</title>
+  <description>Lightweight tooltip plugin.</description>
+  <documentation>http://grails.org/Tooltip+Plugin</documentation>
+  <resources>
+    <resource>DataSource</resource>
+    <resource>UrlMappings</resource>
+  </resources>
+  <dependencies />
+</plugin>
