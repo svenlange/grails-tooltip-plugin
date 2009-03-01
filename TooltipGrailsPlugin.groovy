@@ -1,6 +1,6 @@
 class TooltipGrailsPlugin {
-    def version = "0.1-alpha"
-    def grailsVersion = "1.1-RC2 > *"
+    def version = "0.1"
+    def grailsVersion = "1.0 > *"
     def dependsOn = [:]
     def pluginExcludes = [
 		"grails-app/views/error.gsp"
