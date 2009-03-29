@@ -5,7 +5,7 @@ var tooltip=function(){
 	var maxw = 300;
 	var speed = 1000;
 	var timer = 0;
-	var endalpha = 96;
+	var endalpha = 95;
 	var alpha = 0;
 	var tt,h;
 	var ie = document.all ? true : false;
