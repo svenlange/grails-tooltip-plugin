@@ -1,4 +1,4 @@
-<plugin name='tooltip' version='0.3' grailsVersion='1.0 &gt; *'>
+<plugin name='tooltip' version='0.4' grailsVersion='1.0 &gt; 1.1.1'>
   <author>Sven Lange</author>
   <authorEmail>sv3n.lange@gmail.com</authorEmail>
   <title>Tooltip Plugin</title>

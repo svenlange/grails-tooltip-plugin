@@ -10,7 +10,7 @@ class TooltipPluginTagLibTests extends grails.test.TagLibUnitTestCase {
         mockString.demand.encodeAsHTML(1..1) { HTMLCodec.encode(delegate) }
 
         tagLib.metaClass.pluginContextPath = "/somePath"
-        tagLib.metaClass.createLinkTo = {a -> a.dir + a.file}
+        tagLib.metaClass.resource = {a -> a.dir + a.file}
     }
 
     void testResourceWithoutStylesheet() {
@@ -41,7 +41,7 @@ class TooltipPluginTagLibTests extends grails.test.TagLibUnitTestCase {
     }
 
     void testTipValueWithUmlauts() {
-        tagLib.tip([value: 'öüä']) {"someTextThatWillShowTheTooltip"}
+        tagLib.tip([value: 'Ã¶Ã¼Ã¤']) {"someTextThatWillShowTheTooltip"}
         def expected = """<span onmouseover="tooltip.show('&ouml;&uuml;&auml;');" onmouseout="tooltip.hide();">someTextThatWillShowTheTooltip</span>"""
         assertEquals expected, tagLib.out.toString()
     }

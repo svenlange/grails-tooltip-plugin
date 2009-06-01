@@ -5,14 +5,14 @@ class TooltipPluginTagLib {
     def resources = {attrs ->
         String cssHref
         if (attrs.stylesheet && attrs.stylesheet != "") {
-            cssHref = createLinkTo(dir: 'css/tooltip/', file: "${attrs.stylesheet}.css")
+            cssHref = resource(dir: 'css/tooltip/', file: "${attrs.stylesheet}.css")
         }
         else {
-            cssHref = createLinkTo(dir: "${pluginContextPath}/css/tooltip/", file: "tooltip.css")
+            cssHref = resource(dir: "${pluginContextPath}/css/tooltip/", file: "tooltip.css")
         }
 
         out << """<link rel="stylesheet" type="text/css" href="${cssHref}"/>
-<script type="text/javascript" src="${createLinkTo(dir: "${pluginContextPath}/js/tooltip/", file: "tooltip-min.js")}"></script>"""
+<script type="text/javascript" src="${resource(dir: "${pluginContextPath}/js/tooltip/", file: "tooltip-min.js")}"></script>"""
     }
 
     def tip = {attrs, body ->
