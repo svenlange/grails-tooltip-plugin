@@ -29,6 +29,9 @@
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://C:/Dokumente und Einstellungen/slange/.grails/1.2.0.RC1/projects/tooltip/plugins">
+      <sourceFolder url="file://C:/Dokumente und Einstellungen/slange/.grails/1.2.0.RC1/projects/tooltip/plugins/tomcat-1.2.0.RC1/src/groovy" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/grails-app/conf" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grails-app/conf/hibernate" isTestSource="false" />
@@ -48,9 +51,11 @@
       <library name="Grails User Library">
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
+          <root url="file://C:/Dokumente und Einstellungen/slange/.grails/1.2.0.RC1/projects/tooltip/plugins/tomcat-1.2.0.RC1/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://C:/Dokumente und Einstellungen/slange/.grails/1.2.0.RC1/projects/tooltip/plugins/tomcat-1.2.0.RC1/lib" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>

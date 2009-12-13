@@ -8,7 +8,7 @@
     <resource>BuildConfig</resource>
     <resource>DataSource</resource>
     <resource>UrlMappings</resource>
-    <resource>TooltipPluginTagLib</resource>
+    <resource>org.grails.tooltip.TooltipPluginTagLib</resource>
   </resources>
   <dependencies>
     <resolvers>
