@@ -2,9 +2,9 @@ var tooltip=function(){
 	var id = 'tt';
 	var top = 3;
 	var left = 3;
-	var maxw = 300;
-	var speed = 1000;
-	var timer = 0;
+	var maxwidth = 300;
+	var speed = 10;
+	var timer = 20;
 	var endalpha = 95;
 	var alpha = 0;
 	var tt,h;
@@ -22,7 +22,7 @@ var tooltip=function(){
 			tt.style.display = 'block';
 			tt.innerHTML = v;
 			tt.style.width = w ? w + 'px' : 'auto';
-			if(tt.offsetWidth > maxw){tt.style.width = maxw + 'px'}
+			if(tt.offsetWidth > maxwidth){tt.style.width = maxwidth + 'px'}
 			h = parseInt(tt.offsetHeight) + top;
 			clearInterval(tt.timer);
 			tt.timer = setInterval(function(){tooltip.fade(1)},timer);
