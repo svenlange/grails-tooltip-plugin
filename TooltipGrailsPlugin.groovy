@@ -1,20 +1,11 @@
 class TooltipGrailsPlugin {
-
-    def version = "0.5"
-	
-    // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "1.2.0.RC1 > *"
-	
-    // the other plugins this plugin depends on
+    def version = "0.6"
+    def grailsVersion = "1.2.1 > *"
     def dependsOn = [:]
-	
-    // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/*",
 			"grails-app/i18n/*"
-			
     ]
-
     def author = "Sven Lange"
     def authorEmail = "sv3n.lange@gmail.com"
     def title = "Tooltip Plugin"
