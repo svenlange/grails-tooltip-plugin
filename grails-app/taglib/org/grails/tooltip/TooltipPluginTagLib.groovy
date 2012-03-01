@@ -24,7 +24,7 @@ class TooltipPluginTagLib {
 
     static namespace = "tooltip"
 
-    def resources = {attrs ->
+    final resources = {attrs ->
         String cssHref
         if (attrs.stylesheet && attrs.stylesheet != "") {
             cssHref = resource(dir: 'css/tooltip/', file: "${attrs.stylesheet}.css")
@@ -37,7 +37,7 @@ class TooltipPluginTagLib {
 <script type="text/javascript" src="${resource(dir: "${pluginContextPath}/js/tooltip/", file: "tooltip-min.js")}"></script>"""
     }
 
-    def tip = {attrs, body ->
+    final tip = {attrs, body ->
         if (!attrs.value && !attrs.code)
             throwTagError("Tag [tooltip:tip] is missing required attribute [code] or [value]")
 
