@@ -22,12 +22,17 @@ package org.grails.tooltip
  */
 class TooltipPluginTagLib {
 
+    def grailsApplication
+
     static namespace = "tooltip"
 
     final resources = {attrs ->
         String cssHref
         if (attrs.stylesheet && attrs.stylesheet != "") {
             cssHref = resource(dir: 'css/tooltip/', file: "${attrs.stylesheet}.css")
+        }
+        else if (grailsApplication.config.tooltip.defaultStyle) {
+            cssHref = resource(dir: 'css/tooltip/', file: "${grailsApplication.config.tooltip.defaultStyle}.css")
         }
         else {
             cssHref = resource(dir: "${pluginContextPath}/css/tooltip/", file: "tooltip.css")

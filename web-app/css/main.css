@@ -1,0 +1,20 @@
+body {
+	margin: 30px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid darkblue;
+	padding: 8px;
+}
+
+div.box {
+	width: 200px;
+	background-color: #5f9ea0;
+	border: solid 1px #2f4f4f;
+	margin-bottom: 12px;
+	padding: 12px;
+}
