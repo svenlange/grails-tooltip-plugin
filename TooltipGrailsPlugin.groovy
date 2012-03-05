@@ -1,10 +1,11 @@
 class TooltipGrailsPlugin {
-    def version = "0.7-SNAPSHOT"
+    def version = "0.7"
     def grailsVersion = "1.2.1 > *"
     def dependsOn = [:]
     def pluginExcludes = [
             "grails-app/views/*",
-			"grails-app/i18n/*"
+            "grails-app/i18n/*",
+            "grails-app/controllers/*"
     ]
     def author = "Sven Lange"
     def authorEmail = "sv3n.lange@gmail.com"
