@@ -1,5 +1,5 @@
 class TooltipGrailsPlugin {
-    def version = "0.8-SNAPSHOT"
+    def version = "0.8"
     def grailsVersion = "2.0 > *"
     def dependsOn = [:]
     def pluginExcludes = [
