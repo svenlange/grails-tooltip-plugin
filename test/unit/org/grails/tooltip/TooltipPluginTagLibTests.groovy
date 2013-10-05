@@ -15,81 +15,78 @@
 
 package org.grails.tooltip
 
-import grails.test.TagLibUnitTestCase
-import org.codehaus.groovy.grails.plugins.codecs.HTMLCodec
+import grails.test.mixin.TestFor
+import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException
+import org.junit.Before
+import org.junit.Test
+import org.springframework.context.support.StaticMessageSource
+import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.servlet.support.RequestContextUtils as RCU
 
 /**
  * Unit test for tooltip tag lib. 
  *
  * @author Sven Lange
  */
-class TooltipPluginTagLibTests extends TagLibUnitTestCase {
+@TestFor(TooltipPluginTagLib)
+class TooltipPluginTagLibTests {
 
+    private static final PROPERTY_KEY = "sometext"
+    private static final String PROPERTY_VALUE = "yeeeeeaaaaahhhhhhhhhh"
+
+    @Before
     void setUp() {
-        super.setUp()
-
-        def mockString = mockFor(String)
-        mockString.demand.encodeAsHTML(1..1) { HTMLCodec.encode(delegate) }
+        final messageSource = ((GrailsWebRequest) RequestContextHolder.currentRequestAttributes()).attributes.applicationContext.messageSource as StaticMessageSource
+        messageSource.addMessage(PROPERTY_KEY, RCU.getLocale(request), PROPERTY_VALUE)
+        tagLib.metaClass.getG = {->
+            new ValidationTagLib()
+        }
 
         tagLib.metaClass.pluginContextPath = "/somePath"
-        tagLib.metaClass.resource = {a -> a.dir + a.file}
     }
 
-    void testResourceWithoutStylesheet() {
-        tagLib.resources([:])
-        def expected = """<link rel="stylesheet" type="text/css" href="/somePath/css/tooltip/tooltip.css"/>
+    @Test
+    void resourcesWithoutStylesheet() {
+        assert applyTemplate("""<tooltip:resources/>""") == """<link rel="stylesheet" type="text/css" href="/somePath/css/tooltip/tooltip.css"/>
 <script type="text/javascript" src="/somePath/js/tooltip/tooltip-min.js"></script>"""
-        assertEquals expected, tagLib.out.toString()
     }
 
-    void testResourceWithValidStylesheet() {
-        tagLib.resources([stylesheet: "ananab"])
-        def expected = """<link rel="stylesheet" type="text/css" href="css/tooltip/ananab.css"/>
+    @Test
+    void resourcesWithValidStylesheet() {
+        assert applyTemplate("""<tooltip:resources stylesheet="ananab"/>""") == """<link rel="stylesheet" type="text/css" href="/css/tooltip/ananab.css"/>
 <script type="text/javascript" src="/somePath/js/tooltip/tooltip-min.js"></script>"""
-        assertEquals expected, tagLib.out.toString()
     }
 
-    void testResourceWithEmptyStylesheet() {
-        tagLib.resources([stylesheet: ""])
-        def expected = """<link rel="stylesheet" type="text/css" href="/somePath/css/tooltip/tooltip.css"/>
+    @Test
+    void resourcesWithEmptyStylesheet() {
+        assert applyTemplate("""<tooltip:resources stylesheet="" />""") == """<link rel="stylesheet" type="text/css" href="/somePath/css/tooltip/tooltip.css"/>
 <script type="text/javascript" src="/somePath/js/tooltip/tooltip-min.js"></script>"""
-        assertEquals expected, tagLib.out.toString()
     }
 
-    void testTipValue() {
-        tagLib.tip([value: '<someTag>tzu</someTag>']) {"////&\\\\"}
-        def expected = """<span onmouseover="tooltip.show('&lt;someTag&gt;tzu&lt;/someTag&gt;');" onmouseout="tooltip.hide();">////&\\\\</span>"""
-        assertEquals expected, tagLib.out.toString()
+    @Test
+    void simpleValue() {
+        assert applyTemplate("""<tooltip:tip value="tzu">////&\\\\</tooltip:tip>""") == """<span onmouseover="tooltip.show('tzu');" onmouseout="tooltip.hide();">////&\\\\</span>"""
     }
 
-    void testTipValueWithUmlauts() {
-        tagLib.tip([value: 'öüä']) {"someTextThatWillShowTheTooltip"}
-        def expected = """<span onmouseover="tooltip.show('&ouml;&uuml;&auml;');" onmouseout="tooltip.hide();">someTextThatWillShowTheTooltip</span>"""
-        assertEquals expected, tagLib.out.toString()
+    @Test
+    void valueWithUmlauts() {
+        assert applyTemplate('<tooltip:tip value="öüä">someTextThatWillShowTheTooltip</tooltip:tip>') == """<span onmouseover="tooltip.show('&ouml;&uuml;&auml;');" onmouseout="tooltip.hide();">someTextThatWillShowTheTooltip</span>"""
     }
 
-    void testTipCode() {
-        def myI18nMessage = "myI18nMessage"
-        tagLib.metaClass.message = {myI18nMessage}
-
-        tagLib.tip([code: 'someCode']) {"b"}
-        def expected = """<span onmouseover="tooltip.show('$myI18nMessage');" onmouseout="tooltip.hide();">b</span>"""
-        assertEquals expected, tagLib.out.toString()
+    @Test
+    void withCodeAttribute() {
+        assert applyTemplate("""<tooltip:tip code="$PROPERTY_KEY">b</tooltip:tip>""") == """<span onmouseover="tooltip.show('$PROPERTY_VALUE');" onmouseout="tooltip.hide();">b</span>"""
     }
 
     void testTipCodeAndValue() {
-        def myI18nMessage = "myI18nMessage"
-        tagLib.metaClass.message = {myI18nMessage}
-
-        tagLib.tip([code: 'someCodeReturningMyI18nMessage', value: 'someValue']) {"b"}
-        def expected = """<span onmouseover="tooltip.show('$myI18nMessage');" onmouseout="tooltip.hide();">b</span>"""
-        assertEquals expected, tagLib.out.toString()
+        assert applyTemplate("""<tooltip:tip value="someValue" code="$PROPERTY_KEY">b</tooltip:tip>""") == """<span onmouseover="tooltip.show('$PROPERTY_VALUE');" onmouseout="tooltip.hide();">b</span>"""
     }
 
     void testTipWithoutCodeOrValueAttribute() {
         def msg = shouldFail(GrailsTagException) {
-            tagLib.tip([:]) {"b"}
+            tagLib.tip([:]) { "b" }
         }
         assertEquals "Tag [tooltip:tip] is missing required attribute [code] or [value]", msg
     }
