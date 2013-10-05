@@ -15,6 +15,7 @@
 
 package org.grails.tooltip
 
+import grails.test.TagLibUnitTestCase
 import org.codehaus.groovy.grails.plugins.codecs.HTMLCodec
 import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException
 
@@ -23,7 +24,7 @@ import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException
  *
  * @author Sven Lange
  */
-class TooltipPluginTagLibTests extends grails.test.TagLibUnitTestCase {
+class TooltipPluginTagLibTests extends TagLibUnitTestCase {
 
     void setUp() {
         super.setUp()
