@@ -18,7 +18,6 @@ package org.grails.tooltip
 import grails.test.mixin.TestFor
 import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
-import org.codehaus.groovy.grails.web.taglib.exceptions.GrailsTagException
 import org.junit.Before
 import org.junit.Test
 import org.springframework.context.support.StaticMessageSource
@@ -80,15 +79,14 @@ class TooltipPluginTagLibTests {
         assert applyTemplate("""<tooltip:tip code="$PROPERTY_KEY">b</tooltip:tip>""") == """<span onmouseover="tooltip.show('$PROPERTY_VALUE');" onmouseout="tooltip.hide();">b</span>"""
     }
 
-    void testTipCodeAndValue() {
+    @Test
+    void withCodeAndValue() {
         assert applyTemplate("""<tooltip:tip value="someValue" code="$PROPERTY_KEY">b</tooltip:tip>""") == """<span onmouseover="tooltip.show('$PROPERTY_VALUE');" onmouseout="tooltip.hide();">b</span>"""
     }
 
-    void testTipWithoutCodeOrValueAttribute() {
-        def msg = shouldFail(GrailsTagException) {
-            tagLib.tip([:]) { "b" }
-        }
-        assertEquals "Tag [tooltip:tip] is missing required attribute [code] or [value]", msg
+    @Test
+    void withoutValueAndEmptyCodeAttribute() {
+        assert applyTemplate("""<tooltip:tip code=""><img src="dfkj"/></tooltip:tip>""") == """<img src="dfkj"/>"""
     }
 
 }

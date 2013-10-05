@@ -26,15 +26,13 @@ class TooltipPluginTagLib {
 
     static namespace = "tooltip"
 
-    final resources = {attrs ->
+    final resources = { attrs ->
         String cssHref
         if (attrs.stylesheet && attrs.stylesheet != "") {
             cssHref = resource(dir: 'css/tooltip/', file: "${attrs.stylesheet}.css")
-        }
-        else if (grailsApplication.config.tooltip.defaultStyle) {
+        } else if (grailsApplication.config.tooltip.defaultStyle) {
             cssHref = resource(dir: 'css/tooltip/', file: "${grailsApplication.config.tooltip.defaultStyle}.css")
-        }
-        else {
+        } else {
             cssHref = resource(dir: "${pluginContextPath}/css/tooltip/", file: "tooltip.css")
         }
 
@@ -42,14 +40,15 @@ class TooltipPluginTagLib {
 <script type="text/javascript" src="${resource(dir: "${pluginContextPath}/js/tooltip/", file: "tooltip-min.js")}"></script>"""
     }
 
-    final tip = {attrs, body ->
-        if (!attrs.value && !attrs.code)
-            throwTagError("Tag [tooltip:tip] is missing required attribute [code] or [value]")
-
-        def tooltip = attrs.code ? g.message(code: "${attrs.code}") : attrs.value
-        tooltip = tooltip.encodeAsHTML()
-
-        out << """<span onmouseover="tooltip.show('${tooltip}');" onmouseout="tooltip.hide();">${body()}</span>"""
+    final tip = { attrs, body ->
+        if (!attrs.value && !attrs.code) {
+            log.info("Tag [tooltip:tip] is missing required attribute [code] or [value]")
+            out << body()
+        } else {
+            def tooltip = attrs.code ? g.message(code: "${attrs.code}") : attrs.value
+            tooltip = tooltip.encodeAsHTML()
+            out << """<span onmouseover="tooltip.show('${tooltip}');" onmouseout="tooltip.hide();">${body()}</span>"""
+        }
     }
 
 }
