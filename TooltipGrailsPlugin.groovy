@@ -9,7 +9,7 @@ class TooltipGrailsPlugin {
     ]
     def title = "Tooltip Plugin"
     def author = "Sven Lange"
-    def authorEmail = "sv3n.lange@gmail.com"
+    def authorEmail = "email@svenlange.co.za"
     def description = "This plugin provides a lightweight and lightning fast tooltip that is very easy to use."
     def documentation = "http://grails.org/plugin/tooltip"
     def license = "APACHE"
